@@ -1,15 +1,12 @@
 import sys
-sys.path.append("../uniarchivator/")
-import uniarchivator
+from uniarchivator import uniarchivator
 import unittest
 
 INVALID_GROUP = "you_do_not_have_this_group"
 RESTRICTED_GROUP = "root"
 INVALID_PATH = "/you_do_not_have_this_path"
 
-
 class TestUniarchivator(unittest.TestCase):
-    
     def test_group_check(self):
         """
         Checks wrong users group name error: app should return Errors.ERR_GROUP_NOT_FOUND code
@@ -25,14 +22,14 @@ class TestUniarchivator(unittest.TestCase):
         with self.assertRaises(SystemExit) as cm:
             uniarchivator.check_group(RESTRICTED_GROUP)
         self.assertEqual(cm.exception.code, uniarchivator.Errors.ERR_GROUP_RESTRICTED)
-
-    def test_source_path(self):
+        
+    def check_invalid_path(self):
         """
-        Checks starting point for group files searching is invalid: app should return Errors.ERR_SOURCE_DIR_INVALID code
+        Checks invalid path to source files: app should return Errors.ERR_SOURCE_DIR_INVALID code
         """
         with self.assertRaises(SystemExit) as cm:
-            uniarchivator.check_source_path(RESTRICTED_GROUP)
-        self.assertEqual(cm.exception.code, uniarchivator.Errors.ERR_SOURCE_DIR_INVALID)
+            uniarchivator.check_source_path(INVALID_PATH)
+        self.assertEqual(cm.exception.code, uniarchivator.Errors.ERR_SOURCE_DIR_INVALID)    
 
 if __name__ == '__main__':
         unittest.main()

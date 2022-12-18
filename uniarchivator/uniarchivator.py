@@ -238,7 +238,9 @@ def main():
 
         EXAMPLES:
 
-            group_archivator.py local --name local_files.tgz
+            uniarchivator.py test_group
+
+            uniarchivator --path /home --name test_file test_group
         '''))
     parser.add_argument('group', type=str, help='Linux user group')
     parser.add_argument('--name', type=str, help='Name of the archive file w/o extension')
@@ -253,6 +255,9 @@ def main():
         arch_name = group
     if not source_path:
         source_path = DEFAULT_SOURCE_PATH
+
+    # check default path
+    check_target_path(DEFAULT_ARCH_FILE_PATH)
 
     # check source path
     check_source_path(source_path)
