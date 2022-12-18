@@ -55,7 +55,7 @@ logger.setLevel(logging.DEBUG)
 # Create handlersx
 console_handler = logging.StreamHandler()
 console_handler.setLevel(logging.INFO)
-file_handler = logging.FileHandler('/tmp/uniarchive_journal.log')
+file_handler = logging.FileHandler('/tmp/uniarchivator_journal.log')
 # Create formatters and add it to handlers
 console_format = logging.Formatter('[%(levelname)s] - %(message)s')
 file_format = logging.Formatter('%(asctime)s : [%(levelname)s] - %(message)s')
@@ -217,8 +217,17 @@ def create_folders(group_name):
     for member in members_list:
         check_target_path(f"{DEFAULT_ARCH_FILE_PATH}/{group_name}/{member}")
 
+def main():
+    """
+    Main function.
+    Moves all files from all members of a group to an archive folder.
 
-if __name__ == "__main__":
+    Args:
+        None
+
+    Returns:
+        None
+    """
     if '--help' in sys.argv or '-h' in sys.argv:
         print(__doc__)
 
@@ -308,4 +317,8 @@ if __name__ == "__main__":
     logger.info(f"Archive file: {DEFAULT_ARCH_FILE_PATH}/{arch_name}.{ARCHIVE_EXTENSION}")
     delete_files(source_files_path)
     end = time.perf_counter()
-    logger.debug(f'Archive making finished in {round((end-start)*1000, 1)} ms')
+    logger.debug(f'Archive making finished in {round((end-start)*1000, 1)} ms')    
+
+if __name__ == "__main__":
+    main()
+
